@@ -1,8 +1,8 @@
-// Ejercicio de la burbuja
+// Carlos Ferrando Micó 48607020Q
 
 #include <stdio.h> 
-#include <algorithm>    // std::swap
-#include <vector>       // std::vector
+#include <algorithm>
+#include <vector>
 
 int burbuja(int[]);
 
@@ -33,36 +33,36 @@ int burbuja(int v1[]) {
 
 	__asm 
 	{
-		mov ebx, cantidad		; EBX -> Constante(20) | 32b
-		mov eax, cont1			; EAX -> Incremental(0 a EBX(20)) del 1 bucle | 32b
-		mov ecx, cont2			; ECX -> Decremental(20 a EAX(0 a 20)) del 2 bucle | 32b
-		mov edx, v1				; EDX -> Contiene puntero al vector v1 | 32b
+		mov ebx, cantidad       ; EBX -> Constante(20) | 32b
+		mov eax, cont1          ; EAX -> Incremental(0 a EBX(20)) del 1 bucle | 32b
+		mov ecx, cont2          ; ECX -> Decremental(20 a EAX(0 a 20)) del 2 bucle | 32b
+		mov edx, v1             ; EDX -> Contiene puntero al vector v1 | 32b
 
 	Bucle1:
-		cmp eax, ebx			; Comparación EAX(0 a EBX(20))
-		je Fin					; True(EAX == EBX) -> Salir
-		inc eax					; EAX++
-		mov ecx, ebx			; Devolvemos valor EBX(20) a ECX
-		jmp Bucle2				; Salto incondicional a Bucle2
+		cmp eax, ebx            ; Comparación EAX(0 a EBX(20))
+		je Fin                  ; True(EAX == EBX) -> Salir
+		inc eax                 ; EAX++
+		mov ecx, ebx            ; Devolvemos valor EBX(20) a ECX
+		jmp Bucle2              ; Salto incondicional a Bucle2
 
 	Bucle2:
-		cmp ecx, eax			; Comparación ECX(20 a EAX(0 a 20))
-		je Bucle1				; True(ECX == EAX) -> Bucle1
-		dec ecx					; ECX--
-		dec ecx					; ECX--
+		cmp ecx, eax            ; Comparación ECX(20 a EAX(0 a 20))
+		je Bucle1               ; True(ECX == EAX) -> Bucle1
+		dec ecx                 ; ECX--
+		dec ecx                 ; ECX--
 		mov edi, [edx + ecx * 4]; Guarda en EDI puntero con -> [EDX -> puntero v1 | ECX(20 a 0) -> Posición del vector * bits ]
-		inc ecx					; ECX++
+		inc ecx                 ; ECX++
 		mov esi, [edx + ecx * 4]; Guarda en ESI puntero con -> [EDX -> puntero v1 | ECX(20 a 0) -> Posición del vector * bits]
-		cmp edi, esi			; Comparación EDI y ESI
-		jl Intercambiar			; Si EDI < ESI salto a Intercambiar
-		jmp Bucle2				; Salto incondicional a Bucle2
+		cmp edi, esi            ; Comparación EDI y ESI
+		jl Intercambiar         ; Si EDI < ESI salto a Intercambiar
+		jmp Bucle2              ; Salto incondicional a Bucle2
 
 	Intercambiar:
-		dec ecx					; ECX --
+		dec ecx                 ; ECX --
 		mov [edx + ecx * 4], esi; SWAP del vector v1(n) -> ESI(v1(n-1)) 
-		inc ecx					; ECX++
+		inc ecx                 ; ECX++
 		mov [edx + ecx * 4], edi; SWAP del vector v1(n-1) -> EDI(v1(n))
-		jmp Bucle2				; Salto incondicional a Bucle2
+		jmp Bucle2              ; Salto incondicional a Bucle2
 
 	Fin :
 
